@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Para Valy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Caveat:wght@500;700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6EFE4;
+    --paper-warm:#EEE1CC;
+    --ink:#2B3A2F;
+    --wine:#8B3A4A;
+    --rose:#D9A0A5;
+    --sage:#8A9A7E;
+    --gold:#C6A15B;
+    --shadow: 0 10px 30px rgba(43,58,47,0.12);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(217,160,165,0.15), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(138,154,126,0.15), transparent 45%),
+      var(--paper);
+    color:var(--ink);
+    font-family:'Jost', sans-serif;
+    font-weight:300;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,.serif{ font-family:'Cormorant Garamond', serif; }
+  .script{ font-family:'Caveat', cursive; }
+
+  /* ---------- decor: pétalos flotantes ambientales ---------- */
+  #bg-petals{ position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+  .petalo-caido{
+    position:absolute; top:-5vh;
+    width:14px; height:14px;
+    background:var(--rose);
+    border-radius:0 60% 0 60%;
+    opacity:0.55;
+    animation:caer linear infinite;
+  }
+  @keyframes caer{
+    0%{ transform:translateY(0) translateX(0) rotate(0deg); }
+    50%{ transform:translateY(55vh) translateX(20px) rotate(180deg); }
+    100%{ transform:translateY(115vh) translateX(-15px) rotate(360deg); opacity:0; }
+  }
+
+  section{ position:relative; z-index:1; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding:8vh 8vw 6vh;
+  }
+
+  .flor{ position:relative; width:150px; height:150px; margin-bottom:2.2rem; }
+  .petalo{
+    position:absolute; top:50%; left:50%;
+    width:64px; height:88px;
+    background:linear-gradient(160deg, var(--rose), #c98188);
+    border-radius:0 100% 0 100%;
+    transform-origin:50% 100%;
+    opacity:0;
+    animation:brotar 1.1s cubic-bezier(.2,.8,.3,1) forwards;
+  }
+  .petalo:nth-child(1){ transform:translate(-50%,-100%) rotate(0deg) scale(0.2); animation-delay:.15s; }
+  .petalo:nth-child(2){ transform:translate(-50%,-100%) rotate(60deg) scale(0.2); animation-delay:.3s; }
+  .petalo:nth-child(3){ transform:translate(-50%,-100%) rotate(120deg) scale(0.2); animation-delay:.45s; }
+  .petalo:nth-child(4){ transform:translate(-50%,-100%) rotate(180deg) scale(0.2); animation-delay:.6s; }
+  .petalo:nth-child(5){ transform:translate(-50%,-100%) rotate(240deg) scale(0.2); animation-delay:.75s; }
+  .petalo:nth-child(6){ transform:translate(-50%,-100%) rotate(300deg) scale(0.2); animation-delay:.9s; }
+
+  @keyframes brotar{
+    to{ opacity:0.95; transform:translate(-50%,-100%) rotate(var(--rot,0deg)) scale(1); }
+  }
+  .petalo:nth-child(1){ --rot:0deg; }
+  .petalo:nth-child(2){ --rot:60deg; }
+  .petalo:nth-child(3){ --rot:120deg; }
+  .petalo:nth-child(4){ --rot:180deg; }
+  .petalo:nth-child(5){ --rot:240deg; }
+  .petalo:nth-child(6){ --rot:300deg; }
+
+  .centro-flor{
+    position:absolute; top:50%; left:50%; width:26px; height:26px;
+    background:var(--gold); border-radius:50%;
+    transform:translate(-50%,-50%) scale(0);
+    box-shadow:0 0 14px rgba(198,161,90,0.6);
+    animation:aparecer .5s ease forwards; animation-delay:1s;
+    z-index:2;
+  }
+  @keyframes aparecer{ to{ transform:translate(-50%,-50%) scale(1); } }
+
+  .hero h1{
+    font-size:clamp(2.2rem, 9vw, 3rem);
+    font-weight:600; font-style:italic;
+    margin:0 0 .6rem;
+    opacity:0; animation:subir .9s ease forwards; animation-delay:1.2s;
+  }
+  .hero .subt{
+    font-size:1.05rem; color:var(--wine); letter-spacing:.3px;
+    max-width:26ch; line-height:1.5;
+    opacity:0; animation:subir .9s ease forwards; animation-delay:1.5s;
+  }
+  @keyframes subir{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:translateY(0);} }
+
+  .scroll-cue{
+    margin-top:3.5rem; font-size:.75rem; letter-spacing:2px; text-transform:uppercase;
+    color:var(--sage); opacity:0; animation:subir .9s ease forwards, flotar 2.4s ease-in-out infinite 2.5s;
+    animation-delay:2s, 2.5s;
+  }
+  @keyframes flotar{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(6px);} }
+
+  /* ---------- CARTA ---------- */
+  .carta{
+    max-width:520px; margin:0 auto; padding:10vh 8vw;
+  }
+  .carta .eyebrow{
+    font-size:.75rem; letter-spacing:3px; text-transform:uppercase; color:var(--sage); margin-bottom:.8rem;
+  }
+  .carta h2{
+    font-size:2rem; font-style:italic; margin:0 0 1.6rem; color:var(--wine);
+  }
+  .linea-carta{
+    font-size:1.08rem; line-height:1.85; margin:0 0 1.15rem;
+    opacity:0; transform:translateY(10px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .linea-carta.visible{ opacity:1; transform:translateY(0); }
+  .firma{
+    margin-top:2.2rem; font-family:'Caveat',cursive; font-size:1.9rem; color:var(--wine);
+  }
+
+  /* ---------- FOTO (polaroid) ---------- */
+  .foto-sec{
+    display:flex; justify-content:center; padding:2vh 8vw 8vh;
+  }
+  .polaroid{
+    background:#fff;
+    padding:14px 14px 46px;
+    box-shadow:var(--shadow);
+    border-radius:2px;
+    transform:rotate(-4deg);
+    max-width:320px; width:100%;
+    opacity:0; translate:0 14px;
+    transition:opacity .8s ease, translate .8s ease;
+    position:relative;
+  }
+  .polaroid.visible{ opacity:1; translate:0 0; }
+  .polaroid::before{
+    content:"";
+    position:absolute; top:-14px; left:50%; transform:translateX(-50%) rotate(-3deg);
+    width:70px; height:26px;
+    background:rgba(198,161,90,0.35);
+    box-shadow:0 2px 4px rgba(0,0,0,0.08);
+  }
+  .polaroid img{
+    display:block; width:100%; aspect-ratio:4/5; object-fit:cover;
+    background:var(--paper-warm);
+  }
+  .polaroid figcaption{
+    margin-top:14px; text-align:center;
+    font-family:'Caveat', cursive; font-size:1.3rem; color:var(--wine);
+  }
+
+  /* ---------- PETALOS / RAZONES ---------- */
+  .petalos-sec{ padding:6vh 8vw 10vh; max-width:560px; margin:0 auto; }
+  .petalos-sec .eyebrow{ font-size:.75rem; letter-spacing:3px; text-transform:uppercase; color:var(--sage); margin-bottom:.4rem; text-align:center;}
+  .petalos-sec h2{ text-align:center; font-size:1.9rem; font-style:italic; color:var(--wine); margin:0 0 2.4rem; }
+
+  .grid-petalos{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px;
+  }
+  .tarjeta{
+    perspective:1000px; height:150px;
+    opacity:0; transform:translateY(14px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .tarjeta.visible{ opacity:1; transform:translateY(0); }
+  .tarjeta-inner{
+    position:relative; width:100%; height:100%;
+    transform-style:preserve-3d;
+    transition:transform .6s cubic-bezier(.4,.2,.2,1);
+  }
+  .tarjeta.flip .tarjeta-inner{ transform:rotateY(180deg); }
+  .cara{
+    position:absolute; inset:0; backface-visibility:hidden;
+    border-radius:0 22px 0 22px;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    padding:14px; cursor:pointer;
+    box-shadow:var(--shadow);
+  }
+  .cara.frente{
+    background:var(--paper-warm); border:1px solid rgba(139,58,74,0.15);
+  }
+  .cara.frente span{ font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.25rem; color:var(--wine); }
+  .cara.reverso{
+    background:linear-gradient(160deg, var(--wine), #6f2e3b);
+    color:var(--paper); transform:rotateY(180deg);
+    font-size:.92rem; line-height:1.45;
+  }
+
+  /* ---------- FINAL ---------- */
+  .final{
+    min-height:80vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:8vh 8vw; gap:1.6rem;
+  }
+  .final .eyebrow{ font-size:.75rem; letter-spacing:3px; text-transform:uppercase; color:var(--sage); }
+  .final h2{ font-size:clamp(1.8rem,7vw,2.4rem); font-style:italic; color:var(--wine); max-width:20ch; margin:0; }
+
+  .sello{
+    width:96px; height:96px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #a1465a, var(--wine));
+    color:var(--paper); border:none; cursor:pointer;
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1rem;
+    box-shadow:var(--shadow);
+    transition:transform .25s ease;
+  }
+  .sello:active{ transform:scale(0.92); }
+
+  .mensaje-final{
+    max-width:32ch; font-size:1.05rem; line-height:1.7;
+    opacity:0; max-height:0; overflow:hidden;
+    transition:opacity .8s ease;
+  }
+  .mensaje-final.show{ opacity:1; max-height:400px; margin-top:.4rem; }
+
+  footer{
+    text-align:center; padding:4vh 8vw 6vh; font-family:'Caveat',cursive; font-size:1.3rem; color:var(--sage);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="bg-petals"></div>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="flor">
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="centro-flor"></div>
+  </div>
+  <h1 id="hero-titulo">Para ti</h1>
+  <p class="subt" id="hero-subtitulo">porque los ramos se marchitan, pero esto no.</p>
+  <div class="scroll-cue">desliza ↓</div>
+</section>
+
+<!-- ================= CARTA ================= -->
+<section class="carta">
+  <div class="eyebrow">una carta para la más hermosa mujer</div>
+  <h2 id="carta-titulo">Antes de que digas nada...</h2>
+  <div id="carta-contenido"></div>
+  <p class="firma" id="carta-firma"></p>
+</section>
+
+<!-- ================= FOTO ================= -->
+<section class="foto-sec">
+  <figure class="polaroid" id="polaroid">
+    <img id="foto-nosotros" src="foto.jpeg" alt="17/03/2026">
+    <figcaption id="foto-caption"></figcaption>
+  </figure>
+</section>
+
+<!-- ================= PETALOS ================= -->
+<section class="petalos-sec">
+  <div class="eyebrow">toca cada pétalo</div>
+  <h2>Lo que quiero decirte</h2>
+  <div class="grid-petalos" id="grid-petalos"></div>
+</section>
+
+<!-- ================= FINAL ================= -->
+<section class="final">
+  <div class="eyebrow">una pregunta</div>
+  <h2 id="final-titulo">¿Me permites enamorarte de nuevo?</h2>
+  <button class="sello" id="btn-sello">romper<br>el sello</button>
+  <p class="mensaje-final" id="mensaje-final"></p>
+</section>
+
+<footer id="firma-final"></footer>
+
+<script>
+
+const CONFIG = {
+  paraQuien: "Para Valery Hernandez🤫",                 
+  subtitulo: "Porque los ramos se marchitan, pero esto no. Ensamblado con mucho amor y torpeza.",  
+
+  cartaTitulo: "Antes de que digas nada...",
+  cartaParrafos: [
+    "Quizá sea o no inesperado para ti. Diseñé esta pequeña carta virtual con un propósito en especifico.",
+    "Quiero que sepas que te he pensado muchisimo desde la ultima vez que tuve el privilegio de verte. Estoy una lucha constante por tratar de no acercarme para brindarte comodidad .",
+    "No busco borrar lo que pasó, sino aprender de eso y hacerlo mejor. Contigo, siempre quiero intentarlo de nuevo.",
+    "Este ramo se va a marchitar en unos días, pero lo que siento por ti no."
+  ],
+  firmaCarta: "— Con todo mi cariño. Cristian",
+
+  // Guarda tu foto como "foto.jpg" junto a este archivo y súbela al mismo repo.
+  fotoCaption: "17/03/2026 💛",
+
+  // Cada pétalo es un tema. El texto del reverso es lo que se revela al tocarlo.
+  petalos: [
+    { titulo: "Lo siento",   texto: "Perdón por las palabras que dije sin pensar y por el silencio que dejé después." },
+    { titulo: "Te extraño",  texto: "Extraño tu risa cerca, hablar de todo y de nada, y sentir que estamos en el mismo equipo." },
+    { titulo: "Gracias",     texto: "Gracias por aguantarme, por tu paciencia y por seguir aquí a pesar de todo." },
+    { titulo: "Prometo",     texto: "Prometo escuchar más, reaccionar menos y cuidar mejor lo que tenemos." },
+    { titulo: "Nosotros",    texto: "Nosotros somos más grandes que una pelea. Quiero seguir eligiéndote." },
+    { titulo: "Hoy",         texto: "Hoy solo quiero verte, abrazarte y empezar de nuevo, un poquito mejor que ayer." }
+  ],
+
+  finalTitulo: "¿Me permites enamorarte de nuevo?",
+  mensajeFinal: "Permiteme enmendar mis errores, permiteme seguir aprendiendo de ti y permiteme enamorarte cada dia más y más. De mi parte te brindare todo el amor que en mi cabe y espero puedas recibirlo.",
+
+  firmaFooter: "hecho con torpeza y mucho, pero muuucho cariño 💛"
+};
+
+/* =================== RENDER =================== */
+document.getElementById('hero-titulo').textContent = CONFIG.paraQuien;
+document.getElementById('hero-subtitulo').textContent = CONFIG.subtitulo;
+document.getElementById('carta-titulo').textContent = CONFIG.cartaTitulo;
+document.getElementById('carta-firma').textContent = CONFIG.firmaCarta;
+document.getElementById('foto-caption').textContent = CONFIG.fotoCaption;
+document.getElementById('final-titulo').textContent = CONFIG.finalTitulo;
+document.getElementById('mensaje-final').textContent = CONFIG.mensajeFinal;
+document.getElementById('firma-final').textContent = CONFIG.firmaFooter;
+
+const cartaEl = document.getElementById('carta-contenido');
+CONFIG.cartaParrafos.forEach(p => {
+  const el = document.createElement('p');
+  el.className = 'linea-carta';
+  el.textContent = p;
+  cartaEl.appendChild(el);
+});
+
+const gridEl = document.getElementById('grid-petalos');
+CONFIG.petalos.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'tarjeta';
+  card.innerHTML = `
+    <div class="tarjeta-inner">
+      <div class="cara frente"><span>${p.titulo}</span></div>
+      <div class="cara reverso">${p.texto}</div>
+    </div>`;
+  card.addEventListener('click', () => card.classList.toggle('flip'));
+  gridEl.appendChild(card);
+});
+
+/* =================== SCROLL REVEAL =================== */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.25 });
+
+document.querySelectorAll('.linea-carta, .tarjeta, .polaroid').forEach(el => observer.observe(el));
+
+/* =================== PÉTALOS AMBIENTALES =================== */
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (!reduceMotion) {
+  const bg = document.getElementById('bg-petals');
+  for (let i = 0; i < 10; i++) {
+    const p = document.createElement('div');
+    p.className = 'petalo-caido';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.animationDuration = (9 + Math.random() * 7) + 's';
+    p.style.animationDelay = (Math.random() * 8) + 's';
+    p.style.opacity = 0.3 + Math.random() * 0.3;
+    bg.appendChild(p);
+  }
+}
+
+/* =================== SELLO FINAL =================== */
+const btnSello = document.getElementById('btn-sello');
+const mensajeFinal = document.getElementById('mensaje-final');
+btnSello.addEventListener('click', () => {
+  mensajeFinal.classList.add('show');
+  btnSello.disabled = true;
+  btnSello.style.opacity = '0.6';
+
+  if (!reduceMotion) {
+    const rect = btnSello.getBoundingClientRect();
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'petalo-caido';
+      p.style.left = (rect.left + rect.width/2 + (Math.random()*80-40)) + 'px';
+      p.style.top = (rect.top + window.scrollY) + 'px';
+      p.style.position = 'absolute';
+      p.style.animationDuration = (2.5 + Math.random()*2) + 's';
+      p.style.animationDelay = (Math.random()*.5) + 's';
+      document.getElementById('bg-petals').appendChild(p);
+      setTimeout(() => p.remove(), 5000);
+    }
+  }
+
+  mensajeFinal.scrollIntoView({ behavior:'smooth', block:'center' });
+});
+</script>
+
+</body>
+</html>
