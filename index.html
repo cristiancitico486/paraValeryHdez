@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Una fiesta para Valery</title>
+<title>Para Valery | Un momento para celebrar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -14,42 +14,68 @@
   <main>
     <section class="hero">
       <div class="hero-inner">
-        <p class="kicker">Guarda la fecha</p>
-        <h1>Feliz <span>cumpleaños,</span> Valery</h1>
-        <p class="intro">Hay días bonitos, y luego está el día en que celebramos que llegaste al mundo. Esta fiesta es para ti.</p>
-        <div class="date">14 DE NOVIEMBRE DE 2026</div>
-        <a class="down" href="#detalles">Descubre los detalles ↓</a>
+        <p class="kicker">Un momento para recordar</p>
+        <h1>Valery, <span>lo lograste.</span></h1>
+        <p class="intro">Hoy no solo recibiste una bata: recibiste el símbolo de todo lo que has construido con tu vocación, tu sensibilidad y tu esfuerzo.</p>
+        <div class="date">FUTURA FONOAUDIÓLOGA</div>
+        <a class="down" href="#historia">Lee este mensaje ↓</a>
       </div>
     </section>
 
     <section class="memory" aria-label="Recuerdo de la cumpleañera">
       <figure>
-        <img src="foto.jpeg" alt="Valery en un recuerdo especial">
-        <figcaption>Un recuerdo bonito de una persona aún más bonita.</figcaption>
+        <img src="foto.jpeg" alt="Valery durante un recuerdo especial">
+        <figcaption>La bata que representa un sueño. La sonrisa que lo confirma.</figcaption>
       </figure>
     </section>
 
-    <section class="details" id="detalles">
+    <section class="details" id="historia">
       <div class="details-head">
-        <p class="kicker">Plan de celebración</p>
-        <h2>Una tarde para <em>reír</em>, brindar y crear recuerdos.</h2>
+        <p class="kicker">Para la futura fonoaudióloga</p>
+        <h2>Hay sueños que se visten de blanco y empiezan a <em>hacerse realidad.</em></h2>
       </div>
       <div class="grid">
-        <article class="detail-card"><span class="icon" aria-hidden="true">📍</span><h3>El lugar</h3><p>La dirección se revelará muy pronto. Ven con ganas de pasarla increíble.</p></article>
-        <article class="detail-card"><span class="icon" aria-hidden="true">⏰</span><h3>La hora</h3><p>Reserva la tarde completa del 14 de noviembre para celebrar sin mirar el reloj.</p></article>
-        <article class="detail-card"><span class="icon" aria-hidden="true">🎁</span><h3>Tu única misión</h3><p>Sonreír, disfrutar y traer tu mejor energía. Lo demás corre por cuenta de la fiesta.</p></article>
+        <article class="detail-card"><span class="icon" aria-hidden="true">01</span><h3>Tu vocación</h3><p>Escuchar, acompañar y ayudar a que cada voz encuentre su manera de expresarse.</p></article>
+        <article class="detail-card"><span class="icon" aria-hidden="true">02</span><h3>Este símbolo</h3><p>Una bata recibida en comunidad, como reconocimiento a la profesional que estás empezando a ser.</p></article>
+        <article class="detail-card"><span class="icon" aria-hidden="true">03</span><h3>Lo que viene</h3><p>Muchos aprendizajes, historias y personas que tendrán la suerte de encontrarte en su camino.</p></article>
       </div>
     </section>
 
-    <section class="rsvp">
-      <p class="kicker">Un mensaje especial</p>
-      <h2>Que este nuevo año te encuentre rodeada de amor y alegría.</h2>
-      <p>Gracias por existir y por hacer más brillantes los días de quienes te queremos. ¡Nos vemos para celebrar tus 2026 vueltas al sol!</p>
-      <button id="confirmar" type="button">Confirmo mi asistencia</button>
-      <p id="reply" aria-live="polite"></p>
+    <section class="rsvp" id="cita">
+      <div class="rsvp-copy">
+        <p class="kicker">Una celebración pendiente</p>
+        <h2>¿Puedo invitarte a una cita para celebrarlo?</h2>
+        <p>Quiero escuchar cómo viviste este día, brindar por ti y darte un abrazo que esté a la altura de este logro.</p>
+      </div>
+      <form id="date-form" action="https://formsubmit.co/ajax/camposanchezcritian@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Valery respondió a la invitación">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <label for="respuesta">Pero primero dime</label>
+        <select id="respuesta" name="respuesta" required>
+          <option value="">Elige una respuesta</option>
+          <option value="si">Sí, me encantaría</option>
+          <option value="tal-vez">Déjame pensarlo un poquito</option>
+        </select>
+        <label for="dia">¿Qué día te gustaría?</label>
+        <select id="dia" name="dia" required>
+          <option value="">Elige el día</option>
+          <option value="lunes">Lunes · después de las 6:00 p. m.</option>
+          <option value="martes">Martes · después de la 1:00 p. m.</option>
+          <option value="miercoles">Miércoles · después de la 1:00 p. m.</option>
+          <option value="jueves">Jueves · después de las 6:00 p. m.</option>
+          <option value="viernes">Viernes · después de las 6:00 p. m.</option>
+          <option value="sabado">Sábado · después de las 5:00 p. m.</option>
+          <option value="domingo">Domingo · después de las 5:00 p. m.</option>
+        </select>
+        <label for="nota">Déjame una pista para el plan <span>(opcional)</span></label>
+        <textarea id="nota" name="nota" rows="3" placeholder="Algo que te gustaría hacer..." maxlength="180"></textarea>
+        <button type="submit">Enviar mi respuesta <span aria-hidden="true">→</span></button>
+        <p id="reply" aria-live="polite"></p>
+      </form>
     </section>
   </main>
-  <footer>Con cariño, para una cumpleañera muy especial · 14.11.2026</footer>
+  <footer>Con cariño, para Valery · futura fonoaudióloga</footer>
   <script src="script.js"></script>
 </body>
 </html>
